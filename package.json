@@ -1,0 +1,30 @@
+{
+  "name": "campaign",
+  "version": "1.0.0",
+  "description": "campaign",
+  "main": "./index.html",
+  "scripts": {
+    "install": "cnpm install && bower install"
+  },
+  "keywords": [
+    "campaign"
+  ],
+  "author": "Barry Chen",
+  "license": "ISC",
+  "devDependencies": {
+    "amd-optimize": "^0.6.1",
+    "browser-sync": "^2.18.2",
+    "gulp": "^3.9.1",
+    "gulp-compass": "^2.1.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-rev": "^7.1.2",
+    "gulp-rev-collector": "^1.0.5",
+    "gulp-uglify": "^2.0.0",
+    "gulp.spritesmith": "^6.2.1",
+    "pump": "^1.0.1"
+  }
+}
