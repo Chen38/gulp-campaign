@@ -1,17 +1,17 @@
-var gulp = require('gulp'),
-	plumber = require('gulp-plumber'), // prevent error interrupt task
-	concat = require('gulp-concat'), // merge scripts
-	uglify = require('gulp-uglify'), // minify scripts
-	pump = require('pump'), // pipe streams
-	rename = require('gulp-rename'), // rename file
-	amdOptimize = require("amd-optimize"), // AMD pack
-	replace = require('gulp-replace'), // build replace path
-	spritesmith = require('gulp.spritesmith'), // sprite convert
-	htmlmin = require('gulp-htmlmin'), // minify html
-	compass = require('gulp-compass'), // compile sass to css
-	browserSync = require('browser-sync').create(); // auto refresh browser
+const gulp = require('gulp');
+const plumber = require('gulp-plumber'); // prevent error interrupt task
+const concat = require('gulp-concat'); // merge scripts
+const uglify = require('gulp-uglify'); // minify scripts
+const pump = require('pump'); // pipe streams
+const rename = require('gulp-rename'); // rename file
+const amdOptimize = require("amd-optimize"); // AMD pack
+const replace = require('gulp-replace'); // build replace path
+const spritesmith = require('gulp.spritesmith'); // sprite convert
+const htmlmin = require('gulp-htmlmin'); // minify html
+const compass = require('gulp-compass'); // compile sass to css
+const browserSync = require('browser-sync').create(); // auto refresh browser
 
-var config = require('./config');
+const config = require('./config');
 
 // move bower components
 gulp.task('moveBowerComponents', () => {
@@ -97,7 +97,7 @@ gulp.task('dev', ['moveBowerComponents', 'refresh']);
 
 // sprite
 gulp.task('sprite', () => {
-	var spriteData = gulp.src('asset/src/*')
+	let spriteData = gulp.src('asset/src/*')
 		.pipe(spritesmith(config.spritesmith));
 	return spriteData
 		.pipe(gulp.dest('asset'));
