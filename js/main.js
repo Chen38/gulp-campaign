@@ -1,12 +1,13 @@
 require.config({
-	baseUrl: '../',
-	paths: {
-		$: 'vendor/js/zepto.min',
-		wx: 'vendor/js/jweixin-1.0.0',
-		fastclick: 'vendor/js/fastclick'
+	'baseUrl': '../',
+	'paths': {
+		'$': 'vendor/js/jquery.min',
+		'fastclick': 'vendor/js/fastclick',
+		'swiper': 'vendor/js/swiper.jquery.min'
 	},
-	shim: {
-		'js/app': ['$'],
+	'shim': {
+		'swiper': ['$'],
+		'js/app': ['$', 'swiper'],
 		'js/fn': ['$']
 	}
 });

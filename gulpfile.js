@@ -58,7 +58,7 @@ gulp.task('sass', () => {
 			}
 		}))
 		.pipe(compass(config.compass))
-		.pipe(gulp.dest('dist/css'))
+		.pipe(gulp.dest('css'))
 		.pipe(browserSync.stream());
 	// })
 });
@@ -69,7 +69,7 @@ gulp.task('sass', () => {
 // auto refresh browser
 gulp.task('refresh', ['sass'], () => {
 	browserSync.init({
-		'proxy': "http://192.168.1.105:8038/bitbucket/gulp_campaign/view/",
+		'proxy': "your_catalog_here/view/",
 		'notify': false
 	});
 	gulp.watch("sass/*.scss", ['sass']);

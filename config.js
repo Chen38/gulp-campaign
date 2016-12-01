@@ -2,9 +2,11 @@ module.exports = {
 	'dev': {
 		'bower': {
 			'requirejs': 'bower_components/requirejs/require.js',
-			'zepto': 'bower_components/zepto/zepto.min.js',
+			// 'zepto': 'bower_components/zepto/zepto.min.js',
+			'jquery': 'bower_components/jquery/dist/jquery.min.js',
 			'fastclick': 'bower_components/fastclick/lib/fastclick.js',
-			'normalize': 'bower_components/normalize-css/normalize.css'
+			'swiper': 'bower_components/swiper/dist/js/swiper.jquery.min.js'
+			// 'normalize': 'bower_components/normalize-css/normalize.css'
 		},
 		'dest': {
 			'js': 'vendor/js',
@@ -18,7 +20,7 @@ module.exports = {
 	},
 	'compass': {
 		'config_file': 'config.rb',
-		'css': 'dist/css',
+		'css': 'css',
 		'sass': 'sass'
 	},
 	'requirejs': {
