@@ -4,7 +4,7 @@
   "description": "campaign",
   "main": "./index.html",
   "scripts": {
-    "install": "cnpm install && bower install"
+    "install": "bower install"
   },
   "keywords": [
     "campaign"
