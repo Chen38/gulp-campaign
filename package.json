@@ -4,7 +4,7 @@
   "description": "campaign",
   "main": "./index.html",
   "scripts": {
-    "install": "bower i"
+    "install": "bower install"
   },
   "keywords": [
     "campaign"
@@ -18,11 +18,10 @@
     "gulp-compass": "^2.1.0",
     "gulp-concat": "^2.6.1",
     "gulp-htmlmin": "^3.0.0",
+    "gulp-load-plugins": "^1.4.0",
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
-    "gulp-rev": "^7.1.2",
-    "gulp-rev-collector": "^1.0.5",
     "gulp-uglify": "^2.0.0",
     "gulp.spritesmith": "^6.2.1",
     "pump": "^1.0.1"
