@@ -15,8 +15,8 @@
 * {
 	margin: 0;
 	padding: 0;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	tap-highlight-color: rgba(0, 0, 0, 0);
 	@include box-sizing;
 }
 
@@ -40,10 +40,20 @@ input, select {
 	&:focus {
 		outline: none;
 	}
+	&:disabled {
+		-webkit-text-fill-color: rgba(0, 0, 0, 1);
+		text-fill-color: rgba(0, 0, 0, 1);
+		-webkit-opacity: 1;
+		opacity: 1;
+	}
 }
 
 span {
 	display: inline-block;
+}
+
+::-webkit-scrollbar {
+	display: none;
 }
 
 ::-webkit-input-placeholder {

@@ -47,6 +47,8 @@ module.exports = {
 		'collapseWhitespace': true,
 		'collapseBooleanAttributes': true,
 		'removeEmptyAttributes': true,
-		'removeStyleLinkTypeAttributes': true
+		'removeStyleLinkTypeAttributes': true,
+		'minifyJS': true,
+        'minifyCSS': true
 	}
 }

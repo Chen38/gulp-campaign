@@ -10,7 +10,7 @@ const spritesmith = require('gulp.spritesmith'); // sprite convert
 const htmlmin = require('gulp-htmlmin'); // minify html
 const compass = require('gulp-compass'); // compile sass to css
 const browserSync = require('browser-sync').create(); // auto refresh browser
-
+const reload = browserSync.reload;
 const config = require('./config');
 
 // move bower components
@@ -51,7 +51,7 @@ gulp.task('moveBowerComponents', () => {
 // compile sass
 gulp.task('sass', () => {
 	// return watch('sass/*.scss', () => {
-	return gulp.src('sass/*.scss')
+	gulp.src('sass/*.scss')
 		.pipe(plumber({
 			errorHandler: (err) => {
 				// console.log(err.message);
@@ -69,15 +69,18 @@ gulp.task('sass', () => {
 // auto refresh browser
 gulp.task('refresh', ['sass'], () => {
 	browserSync.init({
-		'proxy': "your_catalog_here/view/",
+		// you can change your own Apache server ip address
+		'proxy': "http://10.146.67.187:8038/",
 		'notify': false
 	});
 	gulp.watch("sass/*.scss", ['sass']);
+	gulp.watch('test.html').on('change', reload);
+	gulp.watch('js/*.js').on('change', reload);
 });
 
 // requirejs concat
 gulp.task('amd', () => {
-	return gulp.src('js/*.js')
+	gulp.src('js/*.js')
 		.pipe(plumber({
 			errorHandler: err => {
 				console.log(err.message);
@@ -96,11 +99,21 @@ gulp.task('amd', () => {
 gulp.task('dev', ['moveBowerComponents', 'refresh']);
 
 // sprite
-gulp.task('sprite', () => {
-	let spriteData = gulp.src('asset/src/*')
+gulp.task('generateSprite', () => {
+	let spriteData = gulp.src('sprite/src/*')
 		.pipe(spritesmith(config.spritesmith));
 	return spriteData
-		.pipe(gulp.dest('asset'));
+		.pipe(gulp.dest('sprite'));
+});
+
+// move sprite file
+gulp.task('sprite', ['generateSprite'], () => {
+	pump([
+		gulp.src('sprite/_sprite.scss'),
+		gulp.dest('sass'),
+		gulp.src('sprite/sprite.png'),
+		gulp.dest('css')
+	]);
 });
 
 // tiny
@@ -118,9 +131,12 @@ gulp.task('sprite', () => {
 // build
 gulp.task('build', ['amd'], () => {
 	pump([
-		gulp.src('view/*.html'),
+		gulp.src('test.html'),
 		htmlmin(config.htmlmin),
-		replace(/(\.\.\/)/g, ''),
+		rename({
+			basename: 'index'
+		}),
+		// replace(/(\.\.\/)/g, ''),
 		gulp.dest('./'),
 		replace(/(js\/main)/, config.build.js.dist),
 		gulp.dest('./')

@@ -4,7 +4,7 @@
   "description": "campaign",
   "main": "./index.html",
   "scripts": {
-    "install": "bower install"
+    "install": "bower i"
   },
   "keywords": [
     "campaign"

@@ -4,6 +4,20 @@
 
 $default-background-size: 100% 100%;
 
+$mt: 16px;
+
+$white: #fff;
+
+$black: #000;
+
+$input-color: #002C89;
+
+$fs: 24px;
+
+$br: 50%;
+
+$border: 1px;
+
 // minxin
 @mixin bg($url) {
 	@include background-image(url($url));
@@ -63,17 +77,15 @@ $default-background-size: 100% 100%;
 	display: none;
 }
 
-// variables
-$mt: 16px;
+.page {
+	@include size;
+	@include pos;
+	@extend .tc;
+	min-height: 100%;
+	border: 15px solid $white;
+}
 
-$white: #fff;
-
-$black: #000;
-
-$input-color: #002C89;
-
-$fs: 24px;
-
-$br: 50%;
-
-$border: 1px;
+.ipage {
+	@include size;
+	@include pos;
+}
