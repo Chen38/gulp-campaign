@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const plugins = require('gulp-load-plugins')(); // load all gulp- plugins
+const plugins = require('gulp-load-plugins')(); // load all gulp-/. plugins
 const pump = require('pump'); // pipe streams
 const amdOptimize = require("amd-optimize"); // AMD pack
 const browserSync = require('browser-sync').create(); // auto refresh browser
@@ -8,7 +8,7 @@ const reload = browserSync.reload;
 const config = require('./config');
 
 // move bower components
-gulp.task('moveBowerComponents', () => {
+gulp.task('move', () => {
 	gulp.src(config.dev.bower.requirejs)
 		.pipe(plugins.uglify())
 		.pipe(gulp.dest(config.dev.dest.js));
@@ -42,7 +42,7 @@ gulp.task('sass', () => {
 // gulp.watch("sass/*.scss", ['sass']);
 
 // auto refresh browser
-gulp.task('refresh', ['sass'], () => {
+gulp.task('refresh', () => {
 	browserSync.init({
 		/**
 		 * you should change your own ip address,
@@ -74,7 +74,7 @@ gulp.task('amd', () => {
 });
 
 // dev
-gulp.task('dev', ['moveBowerComponents', 'refresh']);
+gulp.task('dev', ['sass', 'refresh']);
 
 // sprite
 gulp.task('generateSprite', () => {
