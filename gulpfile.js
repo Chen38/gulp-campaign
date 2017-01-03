@@ -1,13 +1,12 @@
 const gulp = require('gulp');
-const plugins = require('gulp-load-plugins')(); // load all gulp-/. plugins
-const pump = require('pump'); // pipe streams
-const amdOptimize = require("amd-optimize"); // AMD pack
-const browserSync = require('browser-sync').create(); // auto refresh browser
+const plugins = require('gulp-load-plugins')();
+const pump = require('pump');
+const amdOptimize = require("amd-optimize");
+const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
-// define config
+
 const config = require('./config');
 
-// move bower components
 gulp.task('move', () => {
 	gulp.src(config.dev.bower.requirejs)
 		.pipe(plugins.uglify())
@@ -23,25 +22,16 @@ gulp.task('move', () => {
 		.pipe(gulp.dest(config.dev.dest.css));
 });
 
-// compile sass
 gulp.task('sass', () => {
-	// return watch('sass/*.scss', () => {
-	gulp.src('sass/*.scss')
-		.pipe(plugins.plumber({
-			errorHandler: (err) => {
-				// console.log(err.message);
-			}
-		}))
-		.pipe(plugins.compass(config.compass))
-		.pipe(gulp.dest('css'))
-		.pipe(browserSync.stream());
-	// })
+	pump([
+		gulp.src('sass/*.scss'),
+		plugins.plumber(),
+		plugins.compass(config.compass),
+		gulp.dest('css'),
+		browserSync.stream()
+	]);
 });
 
-// watch *.scss
-// gulp.watch("sass/*.scss", ['sass']);
-
-// auto refresh browser
 gulp.task('refresh', () => {
 	browserSync.init({
 		/**
@@ -49,42 +39,54 @@ gulp.task('refresh', () => {
 		 * like ip + port
 		 */
 		'proxy': "http://10.146.67.187:8038/",
-		'notify': false
+		'notify': false,
+		'port': 5386
 	});
 	gulp.watch("sass/*.scss", ['sass']);
 	gulp.watch('test.html').on('change', reload);
 	gulp.watch('js/*.js').on('change', reload);
 });
 
-// requirejs concat
 gulp.task('amd', () => {
-	gulp.src('js/*.js')
-		.pipe(plugins.plumber({
+	pump([
+		gulp.src('js/*.js'),
+		plugins.plumber({
 			errorHandler: err => {
 				console.log(err.message);
 			}
-		}))
-		.pipe(amdOptimize('main', config.requirejs))
-		.pipe(plugins.concat('app.js'))
-		.pipe(plugins.uglify())
-		.pipe(plugins.rename({
+		}),
+		amdOptimize('main', config.requirejs),
+		plugins.concat('app.js'),
+		plugins.uglify(),
+		plugins.rename({
 			'suffix': '.min'
-		}))
-		.pipe(gulp.dest('dist/js'));
+		}),
+		gulp.dest('dist/js')
+	]);
 });
 
-// dev
-gulp.task('dev', ['sass', 'refresh']);
+gulp.task('htmlmin', () => {
+	pump([
+		gulp.src('test.html'),
+		plugins.htmlmin(config.htmlmin),
+		plugins.rename({
+			basename: 'index'
+		}),
+		gulp.dest('./'),
+		plugins.replace(/(js\/main)/, config.build.js.dist),
+		gulp.dest('./')
+	]);
+});
 
-// sprite
+/* ------------------------------------------------ */
+
+// sprite generate
 gulp.task('generateSprite', () => {
 	let spriteData = gulp.src('sprite/src/*')
 		.pipe(plugins.spritesmith(config.spritesmith));
 	return spriteData
 		.pipe(gulp.dest('sprite'));
 });
-
-// move sprite file
 gulp.task('sprite', ['generateSprite'], () => {
 	pump([
 		gulp.src('sprite/_sprite.scss'),
@@ -94,17 +96,8 @@ gulp.task('sprite', ['generateSprite'], () => {
 	]);
 });
 
+// dev
+gulp.task('dev', ['sass', 'refresh']);
+
 // build
-gulp.task('build', ['amd'], () => {
-	pump([
-		gulp.src('test.html'),
-		plugins.htmlmin(config.htmlmin),
-		plugins.rename({
-			basename: 'index'
-		}),
-		// replace(/(\.\.\/)/g, ''),
-		gulp.dest('./'),
-		plugins.replace(/(js\/main)/, config.build.js.dist),
-		gulp.dest('./')
-	]);
-});
+gulp.task('build', ['amd', 'htmlmin']);
