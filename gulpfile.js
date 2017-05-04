@@ -65,9 +65,9 @@ gulp.task('generateSprite', () => {
 gulp.task('sprite', ['generateSprite'], () => {
 	pump([
 		gulp.src('sprite/_sprite.scss'),
-		gulp.dest('sass'),
+		gulp.dest('src/sass'),
 		gulp.src('sprite/sprite.png'),
-		gulp.dest('css')
+		gulp.dest('build/css')
 	]);
 });
 
