@@ -1,5 +1,1 @@
-module.exports = function() {
-	
-	console.log('util loaded.');
-	
-}
+module.exports = function() {}

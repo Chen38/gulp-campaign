@@ -1,11 +1,5 @@
-// reset
-@import "reset";
-
-// mixin, public, variables
-@import "base";
-
-// sprite
-@import "sprite";
-
-// common
-@import "common";
+@import
+        'reset',
+        'base',
+        'global'
+;

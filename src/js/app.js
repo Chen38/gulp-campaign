@@ -1,4 +1,2 @@
-var $ = require('jquery');
-
-require('./helper')($);
-require('./util')($);
+require('./helper')();
+require('./util')();

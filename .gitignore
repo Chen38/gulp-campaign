@@ -1,20 +1,27 @@
-# IDE
-/.idea
+# editor
+.idea/
+.vscode/
 
 # sass
-/.sass-cache
-
-# bower
-/bower_components
+.sass-cache/
 
 # npm
 /node_modules
 npm-debug.*
 
-# font spider
-.font-spider/
+# compiled
+.tmp/
+
+# sprite
+src/sprite
+
+# build
+dist/
 
 # system
 /_MACOSX
 *.DS_Store
 ._*
+
+# log
+*.log
