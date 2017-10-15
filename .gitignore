@@ -6,7 +6,7 @@
 .sass-cache/
 
 # npm
-/node_modules
+node_modules/
 npm-debug.*
 
 # compiled
@@ -19,7 +19,7 @@ src/sprite
 dist/
 
 # system
-/_MACOSX
+_MACOSX/
 *.DS_Store
 ._*
 

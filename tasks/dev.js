@@ -17,6 +17,9 @@ gulp.task('compass', () => {
     gulp.src('./src/sass/main.scss'),
     $.plumber(),
     $.compass(compassOptions),
+    $.autoprefixer({
+      browsers: ['last 10 versions']
+    }),
     gulp.dest('./.tmp/css'),
     bs.stream()
   ])

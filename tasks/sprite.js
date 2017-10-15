@@ -20,7 +20,6 @@ gulp.task('generateSprite', () => {
   ]);
 });
 
-// Move sprite file
 gulp.task('moveSprite', () => {
   pump([
     gulp.src('./src/sprite/build/_sprite.scss'),
