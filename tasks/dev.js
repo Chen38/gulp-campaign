@@ -57,7 +57,7 @@ gulp.task('refresh', () => {
   });
 
   gulp.watch('./src/sass/**/*.scss', ['compass']);
-  gulp.watch('./src/js/**/*.js', ['browserify']);
+  gulp.watch(['./src/js/**/*.js', './src/views/*.html'], ['browserify']);
 });
 
 gulp.task('dev', ['compass', 'browserify', 'refresh']);
