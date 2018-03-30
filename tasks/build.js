@@ -16,6 +16,7 @@ gulp.task('minifyCss', () => {
       './.tmp/css/*.css',
       '!./.tmp/css/*.map',
     ]),
+    $.cleanCss(),
     gulp.dest('./dist/css')
   ]);
 });

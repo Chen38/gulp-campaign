@@ -2,22 +2,11 @@
  * reset
  */
 
-@import "normalize-version";
-
-@import "normalize/links";
-
-@import "compass/reset";
-
-@import "compass/css3";
-
-@import "compass/utilities";
-
 * {
 	margin: 0;
 	padding: 0;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	tap-highlight-color: rgba(0, 0, 0, 0);
-	@include box-sizing;
+	box-sizing: border-box;
 }
 
 a {
@@ -33,7 +22,7 @@ img {
 }
 
 input, select {
-	@include appearance(none);
+	appearance: none;
 	background: transparent;
 	border: none;
 	border-radius: 0;
@@ -41,9 +30,7 @@ input, select {
 		outline: none;
 	}
 	&:disabled {
-		-webkit-text-fill-color: rgba(0, 0, 0, 1);
 		text-fill-color: rgba(0, 0, 0, 1);
-		-webkit-opacity: 1;
 		opacity: 1;
 	}
 }

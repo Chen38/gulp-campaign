@@ -1,20 +1,22 @@
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
+const LessAutoprefix = require('less-plugin-autoprefix');
 const browserify = require('browserify');
 const stringify = require('stringify');
 const source = require('vinyl-source-stream');
 const pump = require('pump');
 const bs = require('browser-sync').create();
 
+// Sass support compile
 const compassOptions = {
   'config_file': 'config.rb',
   'css': './.tmp/css',
-  'sass': './src/sass'
+  'sass': './src/style'
 }
 
 gulp.task('compass', () => {
   pump([
-    gulp.src('./src/sass/main.scss'),
+    gulp.src('./src/style/main.scss'),
     $.plumber(),
     $.compass(compassOptions),
     $.autoprefixer({
@@ -25,6 +27,34 @@ gulp.task('compass', () => {
   ])
 });
 
+// Less support compile
+const lessOptions = {
+  paths: [
+    './src/style',
+    './src/style/modules'
+  ],
+  plugins: [
+    new LessAutoprefix({ browsers: ['last 10 versions'] })
+  ],
+  relativeUrls: true
+}
+
+gulp.task('less', () => {
+  pump([
+    gulp.src('./src/style/main.less'),
+    $.plumber(),
+    $.sourcemaps.init(),
+    $.less(lessOptions)
+    .on('error', (err) => {
+      console.log(err);
+    }),
+    $.sourcemaps.write('./'),
+    gulp.dest('./.tmp/css'),
+    bs.stream()
+  ])
+});
+
+// Browserify compile
 gulp.task('browserify', () => {
   pump([
     browserify({
@@ -56,8 +86,15 @@ gulp.task('refresh', () => {
     port: 5386
   });
 
-  gulp.watch('./src/sass/**/*.scss', ['compass']);
+  gulp.watch('./src/style/**/*.scss', ['compass']);
+  gulp.watch('./src/style/**/*.less', ['less']);
   gulp.watch(['./src/js/**/*.js', './src/views/*.html'], ['browserify']);
 });
 
-gulp.task('dev', ['compass', 'browserify', 'refresh']);
+/**
+ * dev tasks change
+ *
+ * // - sass => use 'compass'
+ * // - less => use 'less'
+ */
+gulp.task('dev', ['less', 'browserify', 'refresh']);
