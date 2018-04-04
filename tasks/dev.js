@@ -7,21 +7,22 @@ const source = require('vinyl-source-stream');
 const pump = require('pump');
 const bs = require('browser-sync').create();
 
-// Sass support compile
-const compassOptions = {
-  'config_file': 'config.rb',
-  'css': './.tmp/css',
-  'sass': './src/style'
+let sassOptions = {
+  outputStyle: 'compressed'
 }
 
-gulp.task('compass', () => {
+let autoprefixerOptions = {
+  browsers: ['last 10 versions']
+}
+
+gulp.task('sass', () => {
   pump([
     gulp.src('./src/style/main.scss'),
     $.plumber(),
-    $.compass(compassOptions),
-    $.autoprefixer({
-      browsers: ['last 10 versions']
-    }),
+    $.sourcemaps.init(),
+    $.sass(sassOptions),
+    $.autoprefixer(autoprefixerOptions),
+    $.sourcemaps.write('./'),
     gulp.dest('./.tmp/css'),
     bs.stream()
   ])
@@ -86,7 +87,7 @@ gulp.task('refresh', () => {
     port: 5386
   });
 
-  gulp.watch('./src/style/**/*.scss', ['compass']);
+  // gulp.watch('./src/style/**/*.scss', ['sass']);
   gulp.watch('./src/style/**/*.less', ['less']);
   gulp.watch(['./src/js/**/*.js', './src/views/*.html'], ['browserify']);
 });
@@ -94,7 +95,7 @@ gulp.task('refresh', () => {
 /**
  * dev tasks change
  *
- * // - sass => use 'compass'
+ * // - sass => use 'sass'
  * // - less => use 'less'
  */
 gulp.task('dev', ['less', 'browserify', 'refresh']);
