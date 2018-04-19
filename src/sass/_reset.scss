@@ -1,0 +1,54 @@
+// ----------------
+// Reset
+// ----------------
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  @include size(100%);
+  overflow: auto;
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+input,
+button,
+select {
+  appearance: none;
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  font-family: $font-family-base;
+  background: transparent;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+span {
+  display: inline-block;
+}
+
+[hidden] {
+  display: none;
+}

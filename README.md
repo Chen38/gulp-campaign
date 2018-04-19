@@ -1,28 +1,30 @@
-## Gulp Campaign
+## Gulp Starter
 
-For the simple H5 development
+For simple H5 development
 
 ### Before start
 
+> For sure you have intalled the `yarn` in global, or `npm` is OK
+
 ```bash
-npm i
+yarn install
 ```
 
-### Start the server and development
+### Start the server
 
 ```bash
-npm run start
+yarn run start
 ```
 
 ### Generate sprite image
 ```bash
-npm run sprite
+yarn run sprite
 ```
 
 ### Production build
 
 ```bash
-npm run build
+yarn run build
 ```
 
 ### Depoly directory

@@ -1,0 +1,30 @@
+// ----------------
+// Global classes
+// ----------------
+.text-center {
+  text-align: center;
+}
+
+.block-center {
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
+.page {
+  @include size(100%);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

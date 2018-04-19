@@ -6,7 +6,7 @@ const spriteOptions = {
   imgName: 'sprite.png',
   cssName: '_sprite.scss',
   algorithm: 'binary-tree',
-  imgPath: '../assets/img/sprite.png',
+  imgPath: '../assets/images/sprite.png',
   imgOpts: {
     quality: 60
   }
@@ -27,6 +27,6 @@ gulp.task('moveSprite', () => {
   ]);
   pump([
     gulp.src('./src/sprite/build/sprite.png'),
-    gulp.dest('./src/assets/img')
+    gulp.dest('./src/assets/images')
   ]);
 });

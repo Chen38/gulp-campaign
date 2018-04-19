@@ -8,7 +8,7 @@ const pump = require('pump');
 const bs = require('browser-sync').create();
 
 let sassOptions = {
-  outputStyle: 'compressed'
+  outputStyle: 'expanded'
 }
 
 let autoprefixerOptions = {
@@ -17,7 +17,7 @@ let autoprefixerOptions = {
 
 gulp.task('sass', () => {
   pump([
-    gulp.src('./src/style/main.scss'),
+    gulp.src('./src/sass/main.scss'),
     $.plumber(),
     $.sourcemaps.init(),
     $.sass(sassOptions),
@@ -31,8 +31,8 @@ gulp.task('sass', () => {
 // Less support compile
 const lessOptions = {
   paths: [
-    './src/style',
-    './src/style/modules'
+    './src/less',
+    './src/less/modules'
   ],
   plugins: [
     new LessAutoprefix({ browsers: ['last 10 versions'] })
@@ -42,7 +42,7 @@ const lessOptions = {
 
 gulp.task('less', () => {
   pump([
-    gulp.src('./src/style/main.less'),
+    gulp.src('./src/less/main.less'),
     $.plumber(),
     $.sourcemaps.init(),
     $.less(lessOptions)
@@ -87,15 +87,8 @@ gulp.task('refresh', () => {
     port: 5386
   });
 
-  // gulp.watch('./src/style/**/*.scss', ['sass']);
-  gulp.watch('./src/style/**/*.less', ['less']);
+  gulp.watch('./src/sass/**/*.scss', ['sass']);
   gulp.watch(['./src/js/**/*.js', './src/views/*.html'], ['browserify']);
 });
 
-/**
- * dev tasks change
- *
- * // - sass => use 'sass'
- * // - less => use 'less'
- */
-gulp.task('dev', ['less', 'browserify', 'refresh']);
+gulp.task('dev', ['sass', 'browserify', 'refresh']);

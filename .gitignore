@@ -2,9 +2,6 @@
 .idea/
 .vscode/
 
-# sass
-.sass-cache/
-
 # npm
 node_modules/
 npm-debug.*

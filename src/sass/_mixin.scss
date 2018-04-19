@@ -1,0 +1,14 @@
+// ----------------
+// Mixin functions
+// ----------------
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin bg($url) {
+  background-image: url($url);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
