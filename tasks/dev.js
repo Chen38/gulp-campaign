@@ -4,6 +4,7 @@ const LessAutoprefix = require('less-plugin-autoprefix');
 const browserify = require('browserify');
 const stringify = require('stringify');
 const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
 const pump = require('pump');
 const bs = require('browser-sync').create();
 
@@ -60,7 +61,7 @@ gulp.task('browserify', () => {
   pump([
     browserify({
       entries: './src/js/app.js',
-      debug: true
+      debug: false
     })
     .transform(stringify, {
       appliesTo: { includeExtensions: ['.html'] },
@@ -71,6 +72,9 @@ gulp.task('browserify', () => {
       console.log(err);
     }),
     source('bundle.js'),
+    buffer(),
+    $.sourcemaps.init({ loadMaps: true }),
+    $.sourcemaps.write('./'),
     gulp.dest('./.tmp/js'),
     bs.stream()
   ]);
