@@ -73,7 +73,7 @@ module.exports = {
   proxyOptions: {
 
     // API host
-    target: 'http://qa.wechat.d1m.cn',
+    target: 'http://example.com',
     changeOrigin: true,
     logLevel: 'debug'
   }
