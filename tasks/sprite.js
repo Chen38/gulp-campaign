@@ -2,20 +2,12 @@ const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 const pump = require('pump');
 
-const spriteOptions = {
-  imgName: 'sprite.png',
-  cssName: '_sprite.scss',
-  algorithm: 'binary-tree',
-  imgPath: '../assets/images/sprite.png',
-  imgOpts: {
-    quality: 60
-  }
-};
+const config = require('../config');
 
 gulp.task('generateSprite', () => {
   pump([
     gulp.src('./src/sprite/*'),
-    $.spritesmith(spriteOptions),
+    $.spritesmith(config.spriteOptions),
     gulp.dest('./src/sprite/build')
   ]);
 });

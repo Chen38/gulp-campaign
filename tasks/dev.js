@@ -1,52 +1,34 @@
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
-const LessAutoprefix = require('less-plugin-autoprefix');
 const browserify = require('browserify');
 const stringify = require('stringify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const pump = require('pump');
 const bs = require('browser-sync').create();
+const proxy = require('http-proxy-middleware');
 
-let sassOptions = {
-  outputStyle: 'expanded'
-}
-
-let autoprefixerOptions = {
-  browsers: ['last 10 versions']
-}
+const config = require('../config');
 
 gulp.task('sass', () => {
   pump([
     gulp.src('./src/sass/main.scss'),
     $.plumber(),
     $.sourcemaps.init(),
-    $.sass(sassOptions),
-    $.autoprefixer(autoprefixerOptions),
+    $.sass(config.sassOptions),
+    $.autoprefixer(config.autoprefixerOptions),
     $.sourcemaps.write('./'),
     gulp.dest('./.tmp/css'),
     bs.stream()
   ])
 });
 
-// Less support compile
-const lessOptions = {
-  paths: [
-    './src/less',
-    './src/less/modules'
-  ],
-  plugins: [
-    new LessAutoprefix({ browsers: ['last 10 versions'] })
-  ],
-  relativeUrls: true
-}
-
 gulp.task('less', () => {
   pump([
     gulp.src('./src/less/main.less'),
     $.plumber(),
     $.sourcemaps.init(),
-    $.less(lessOptions)
+    $.less(config.lessOptions)
     .on('error', (err) => {
       console.log(err);
     }),
@@ -80,15 +62,33 @@ gulp.task('browserify', () => {
   ]);
 });
 
+/**
+ * Set the default proxy options
+ * Handle nothing but process
+ *
+ * See https://browsersync.io/docs/options#option-middleware
+ */
+let myProxy = {
+  route: '',
+  handle(req, res, next) {
+    next();
+  }
+};
+
+if (config.isProxy) {
+  myProxy = proxy(config.proxyPath, config.proxyOptions);
+}
+
 gulp.task('refresh', () => {
   bs.init({
     files: [ './src/*.html' ],
     server: {
-      baseDir: ['./src', './.tmp']
+      baseDir: ['./src', './.tmp'],
+      middleware: [ myProxy ]
     },
     notify: false,
     open: false,
-    port: 5386
+    port: config.port
   });
 
   gulp.watch('./src/sass/**/*.scss', ['sass']);

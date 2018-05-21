@@ -1,12 +1,15 @@
+const path = require('path');
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 const pump = require('pump');
+
+const config = require('../config');
 
 gulp.task('uglify', () => {
   pump([
     gulp.src('./.tmp/js/bundle.js'),
     $.uglify(),
-    gulp.dest('./dist/js')
+    gulp.dest(path.resolve(__dirname, `../${config.buildPath}/js`))
   ]);
 });
 
@@ -17,14 +20,14 @@ gulp.task('minifyCss', () => {
       '!./.tmp/css/*.map',
     ]),
     $.cleanCss(),
-    gulp.dest('./dist/css')
+    gulp.dest(path.resolve(__dirname, `../${config.buildPath}/css`))
   ]);
 });
 
 gulp.task('copy', () => {
   pump([
     gulp.src(['./src/assets/**/*']),
-    gulp.dest('./dist/assets')
+    gulp.dest(path.resolve(__dirname, `../${config.buildPath}/assets`))
   ]);
   pump([
     gulp.src(['./src/index.html']),
@@ -37,7 +40,7 @@ gulp.task('copy', () => {
       minifyJS: true,
       minifyCSS: true
     }),
-    gulp.dest('./dist')
+    gulp.dest(path.resolve(__dirname, `../${config.buildPath}`))
   ])
 });
 
