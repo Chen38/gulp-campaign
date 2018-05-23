@@ -8,7 +8,7 @@ const config = require('../config');
 gulp.task('uglify', () => {
   pump([
     gulp.src('./.tmp/js/bundle.js'),
-    $.uglify(),
+    $.uglify(config.uglifyOptions),
     gulp.dest(path.resolve(__dirname, `../${config.buildPath}/js`))
   ]);
 });
@@ -41,7 +41,7 @@ gulp.task('copy', () => {
       minifyCSS: true
     }),
     gulp.dest(path.resolve(__dirname, `../${config.buildPath}`))
-  ])
+  ]);
 });
 
 gulp.task('build', ['uglify', 'minifyCss', 'copy']);

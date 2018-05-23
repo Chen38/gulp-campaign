@@ -20,7 +20,7 @@ gulp.task('sass', () => {
     $.sourcemaps.write('./'),
     gulp.dest('./.tmp/css'),
     bs.stream()
-  ])
+  ]);
 });
 
 gulp.task('less', () => {
@@ -35,7 +35,7 @@ gulp.task('less', () => {
     $.sourcemaps.write('./'),
     gulp.dest('./.tmp/css'),
     bs.stream()
-  ])
+  ]);
 });
 
 // Browserify compile

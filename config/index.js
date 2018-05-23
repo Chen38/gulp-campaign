@@ -59,6 +59,22 @@ module.exports = {
     }
   },
 
+  /**
+   * Uglify compress options
+   *
+   * See https://github.com/mishoo/UglifyJS2#minify-options
+   */
+  uglifyOptions: {
+    pure_getters: true,
+    passes: 3,
+    compress: {
+      drop_console: true
+    },
+    output: {
+      ascii_only: true
+    }
+  },
+
   // Should enable the proxy
   isProxy: false,
 
@@ -77,4 +93,4 @@ module.exports = {
     changeOrigin: true,
     logLevel: 'debug'
   }
-}
+};
