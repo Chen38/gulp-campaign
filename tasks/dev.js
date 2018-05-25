@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 const browserify = require('browserify');
 const stringify = require('stringify');
+const babelify = require('babelify');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const pump = require('pump');
@@ -42,8 +43,14 @@ gulp.task('less', () => {
 gulp.task('browserify', () => {
   pump([
     browserify({
-      entries: './src/js/app.js',
-      debug: false
+      entries: './src/js/index.js',
+      debug: true
+    })
+    .transform(babelify, {
+      presets: [
+        'babel-preset-env',
+        'babel-preset-stage-2'
+      ]
     })
     .transform(stringify, {
       appliesTo: { includeExtensions: ['.html'] },
@@ -55,8 +62,6 @@ gulp.task('browserify', () => {
     }),
     source('bundle.js'),
     buffer(),
-    $.sourcemaps.init({ loadMaps: true }),
-    $.sourcemaps.write('./'),
     gulp.dest('./.tmp/js'),
     bs.stream()
   ]);

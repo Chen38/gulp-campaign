@@ -1,2 +1,3 @@
-require('./util/helper')();
-require('./app')();
+import result from './app';
+
+console.log(result);

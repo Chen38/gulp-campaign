@@ -15,6 +15,10 @@
   "author": "Barry Chen",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babelify": "^8.0.0",
     "browser-sync": "^2.23.6",
     "browserify": "^14.5.0",
     "gulp": "^3.9.1",
