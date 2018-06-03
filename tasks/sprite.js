@@ -1,3 +1,4 @@
+/* eslint-disable */
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 const pump = require('pump');

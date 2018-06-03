@@ -1,3 +1,4 @@
+/* eslint-disable */
 const path = require('path');
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
@@ -5,11 +6,16 @@ const pump = require('pump');
 
 const config = require('../config');
 
+const JS_DEST_PATH = path.resolve(__dirname, `../${config.buildPath}/js`);
+const CSS_DEST_PATH = path.resolve(__dirname, `../${config.buildPath}/css`);
+const ASSETS_DEST_PATH = path.resolve(__dirname, `../${config.buildPath}/assets`);
+
 gulp.task('uglify', () => {
   pump([
     gulp.src('./.tmp/js/bundle.js'),
     $.uglify(config.uglifyOptions),
-    gulp.dest(path.resolve(__dirname, `../${config.buildPath}/js`))
+    $.rev(),
+    gulp.dest(JS_DEST_PATH)
   ]);
 });
 
@@ -20,17 +26,26 @@ gulp.task('minifyCss', () => {
       '!./.tmp/css/*.map',
     ]),
     $.cleanCss(),
-    gulp.dest(path.resolve(__dirname, `../${config.buildPath}/css`))
+    $.rev(),
+    gulp.dest(CSS_DEST_PATH)
   ]);
 });
 
-gulp.task('copy', () => {
-  pump([
-    gulp.src(['./src/assets/**/*']),
-    gulp.dest(path.resolve(__dirname, `../${config.buildPath}/assets`))
-  ]);
+gulp.task('minifyHtml', () => {
   pump([
     gulp.src(['./src/index.html']),
+    $.inject(
+      gulp.src(
+        [
+          `${JS_DEST_PATH}/*.js`,
+          `${CSS_DEST_PATH}/*.css`
+        ],
+        {
+          read: false
+        }
+      ),
+      config.injectOptions
+    ),
     $.htmlmin({
       removeComments: true,
       collapseWhitespace: true,
@@ -41,6 +56,13 @@ gulp.task('copy', () => {
       minifyCSS: true
     }),
     gulp.dest(path.resolve(__dirname, `../${config.buildPath}`))
+  ]);
+});
+
+gulp.task('copy', () => {
+  pump([
+    gulp.src(['./src/assets/**/*']),
+    gulp.dest(ASSETS_DEST_PATH)
   ]);
 });
 

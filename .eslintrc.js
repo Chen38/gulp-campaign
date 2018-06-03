@@ -9,7 +9,9 @@ module.exports = {
     node: true,
     commonjs: true
   },
-  'globals': {},
+  'globals': {
+    Promise: 0
+  },
   'rules': {
     'no-unused-vars': 2,
     'arrow-parens': 1,

@@ -13,18 +13,18 @@ yarn install
 ### Start the server
 
 ```bash
-yarn run start
+yarn start
 ```
 
 ### Generate sprite image
 ```bash
-yarn run sprite
+yarn sprite
 ```
 
 ### Production build
 
 ```bash
-yarn run build
+yarn build
 ```
 
 ### Depoly directory

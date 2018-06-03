@@ -8,6 +8,17 @@ module.exports = {
   buildPath: 'dist',
 
   /**
+   * Inject options
+   *
+   * See: https://github.com/klei/gulp-inject#options
+   */
+  injectOptions: {
+    ignorePath: ['.tmp', 'dist'],
+    addRootSlash: false,
+    relative: false
+  },
+
+  /**
    * Sass compile output style
    *
    * See http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style

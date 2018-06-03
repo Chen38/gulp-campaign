@@ -1,3 +1,4 @@
+/* eslint-disable */
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 const browserify = require('browserify');
@@ -13,7 +14,7 @@ const config = require('../config');
 
 gulp.task('sass', () => {
   pump([
-    gulp.src('./src/sass/main.scss'),
+    gulp.src('./src/sass/app.scss'),
     $.plumber(),
     $.sourcemaps.init(),
     $.sass(config.sassOptions),
@@ -26,7 +27,7 @@ gulp.task('sass', () => {
 
 gulp.task('less', () => {
   pump([
-    gulp.src('./src/less/main.less'),
+    gulp.src('./src/less/app.less'),
     $.plumber(),
     $.sourcemaps.init(),
     $.less(config.lessOptions)
