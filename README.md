@@ -30,8 +30,8 @@ In `./tasks/dev.js`
 
 ```diff
 Line 100:
-- 100 gulp.watch('./src/sass/**/*.scss', ['sass']);
-+ 100 gulp.watch('./src/less/**/*.less', ['less']);
+- gulp.watch('./src/sass/**/*.scss', ['sass']);
++ gulp.watch('./src/less/**/*.less', ['less']);
 
 Line 104:
 - gulp.task('dev', ['sass', 'browserify', 'refresh']);
@@ -47,6 +47,18 @@ Default using `browserify` and `babelify`, so we can use commonjs and ES6 module
 ### Proxy support
 
 Proxy server based on the `browser-sync`'s middleware, more details see [here](https://browsersync.io/docs/options#option-middleware).
+
+### Git hooks
+
+Use eslint to check the staged js files, put the `pre-commit` in `config` folder
+
+```bash
+# copy the pre-commit to hooks folder
+cp config/pre-commit .git/hooks
+
+# Set it as executable(mac)
+chmod +x .git/hooks/pre-commit
+```
 
 ### Production build
 

@@ -6,8 +6,12 @@ export function add(...argus) {
 
 export function get(argus) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(argus);
-    }, 1000);
+    try {
+      setTimeout(() => {
+        resolve(argus);
+      }, 1000);
+    } catch(ex) {
+      reject(ex);
+    }
   });
 }
