@@ -1,3 +1,3 @@
-import result from './app';
+import result from './app'
 
-console.log(result);
+console.log(result)
