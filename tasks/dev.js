@@ -54,7 +54,7 @@ gulp.task('browserify', () => {
                 ],
             })
             .transform(stringify, {
-                appliesTo: { includeExtensions: ['.html'] },
+                appliesTo: { includeExtensions: [ '.html' ] },
                 minify: true,
             })
             .bundle()
@@ -76,7 +76,7 @@ gulp.task('browserify', () => {
  */
 let myProxy = {
     route: '',
-    handle(req, res, next) {
+    handle (req, res, next) {
         next()
     },
 }
@@ -87,18 +87,19 @@ if (isProxy) {
 
 gulp.task('refresh', () => {
     bs.init({
-        files: ['./src/*.html'],
+        files: [ './src/*.html' ],
         server: {
-            baseDir: ['./src', './.tmp'],
-            middleware: [myProxy],
+            baseDir: [ './src', './.tmp' ],
+            middleware: [ myProxy ],
         },
         notify: false,
         open: false,
+        ui: false,
         port,
     })
 
-    gulp.watch('./src/sass/**/*.scss', ['sass'])
-    gulp.watch(['./src/js/**/*.js', './src/views/*.html'], ['browserify'])
+    gulp.watch('./src/sass/**/*.scss', [ 'sass' ])
+    gulp.watch([ './src/js/**/*.js', './src/views/*.html' ], [ 'browserify' ])
 })
 
-gulp.task('dev', ['sass', 'browserify', 'refresh'])
+gulp.task('dev', [ 'sass', 'browserify', 'refresh' ])

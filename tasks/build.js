@@ -32,7 +32,7 @@ gulp.task('minifyCss', () => {
 
 gulp.task('minifyHtml', () => {
     pump([
-        gulp.src(['./src/index.html']),
+        gulp.src([ './src/index.html' ]),
         $.inject(
             gulp.src(
                 [
@@ -59,9 +59,9 @@ gulp.task('minifyHtml', () => {
 
 gulp.task('copy', () => {
     pump([
-        gulp.src(['./src/assets/**/*']),
+        gulp.src([ './src/assets/**/*' ]),
         gulp.dest(ASSETS_DEST_PATH),
     ])
 })
 
-gulp.task('build', ['uglify', 'minifyCss', 'copy'])
+gulp.task('build', [ 'uglify', 'minifyCss', 'copy' ])
